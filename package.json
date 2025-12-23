@@ -7,17 +7,212 @@
     "vscode": "^1.107.0"
   },
   "categories": [
+    "AI",
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+    "onView:agentSkills.marketplace",
+    "onView:agentSkills.installed"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "agent-skills",
+          "title": "Agent Skills",
+          "icon": "resources/skills-icon.svg"
+        }
+      ]
+    },
+    "views": {
+      "agent-skills": [
+        {
+          "id": "agentSkills.marketplace",
+          "name": "Marketplace"
+        },
+        {
+          "id": "agentSkills.installed",
+          "name": "Installed"
+        }
+      ]
+    },
+    "viewsWelcome": [
+      {
+        "view": "agentSkills.installed",
+        "contents": "No skills installed yet.\n[Browse Marketplace](command:agentSkills.focusMarketplace)"
+      }
+    ],
     "commands": [
       {
-        "command": "agent-skills.helloWorld",
-        "title": "Hello World"
+        "command": "agentSkills.install",
+        "title": "Install Skill",
+        "icon": "$(cloud-download)"
+      },
+      {
+        "command": "agentSkills.uninstall",
+        "title": "Uninstall Skill",
+        "icon": "$(trash)"
+      },
+      {
+        "command": "agentSkills.refresh",
+        "title": "Refresh",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "agentSkills.viewDetails",
+        "title": "View Skill Details",
+        "icon": "$(info)"
+      },
+      {
+        "command": "agentSkills.search",
+        "title": "Search Skills",
+        "icon": "$(search)"
+      },
+      {
+        "command": "agentSkills.clearSearch",
+        "title": "Clear Search",
+        "icon": "$(close)"
+      },
+      {
+        "command": "agentSkills.openSkillFolder",
+        "title": "Open Skill Folder",
+        "icon": "$(folder-opened)"
+      },
+      {
+        "command": "agentSkills.focusMarketplace",
+        "title": "Focus Marketplace View"
       }
-    ]
+    ],
+    "menus": {
+      "view/title": [
+        {
+          "command": "agentSkills.search",
+          "when": "view == agentSkills.marketplace",
+          "group": "navigation@1"
+        },
+        {
+          "command": "agentSkills.clearSearch",
+          "when": "view == agentSkills.marketplace && agentSkills:searchActive",
+          "group": "navigation@1"
+        },
+        {
+          "command": "agentSkills.refresh",
+          "when": "view == agentSkills.marketplace || view == agentSkills.installed",
+          "group": "navigation@2"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "agentSkills.install",
+          "when": "view == agentSkills.marketplace && viewItem == skill",
+          "group": "inline@1"
+        },
+        {
+          "command": "agentSkills.viewDetails",
+          "when": "view == agentSkills.marketplace && viewItem == skill",
+          "group": "inline@2"
+        },
+        {
+          "command": "agentSkills.uninstall",
+          "when": "view == agentSkills.installed && viewItem == installedSkill",
+          "group": "inline@1"
+        },
+        {
+          "command": "agentSkills.openSkillFolder",
+          "when": "view == agentSkills.installed && viewItem == installedSkill",
+          "group": "inline@2"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "Agent Skills",
+      "properties": {
+        "agentSkills.skillRepositories": {
+          "type": "array",
+          "default": [
+            {
+              "owner": "anthropics",
+              "repo": "skills",
+              "path": "skills",
+              "branch": "main"
+            },
+            {
+              "owner": "pytorch",
+              "repo": "pytorch",
+              "path": ".claude/skills",
+              "branch": "main"
+            },
+            {
+              "owner": "openai",
+              "repo": "skills",
+              "path": "skills/.curated",
+              "branch": "main"
+            },
+            {
+              "owner": "formulahendry",
+              "repo": "agent-skill-code-runner",
+              "path": ".github/skills/code-runner",
+              "branch": "main",
+              "singleSkill": true
+            }
+          ],
+          "description": "GitHub repositories to fetch skills from",
+          "items": {
+            "type": "object",
+            "properties": {
+              "owner": {
+                "type": "string",
+                "description": "GitHub repository owner"
+              },
+              "repo": {
+                "type": "string",
+                "description": "GitHub repository name"
+              },
+              "path": {
+                "type": "string",
+                "description": "Path to skills directory within the repo"
+              },
+              "branch": {
+                "type": "string",
+                "default": "main",
+                "description": "Branch name"
+              },
+              "singleSkill": {
+                "type": "boolean",
+                "default": false,
+                "description": "If true, the path points directly to a single skill folder"
+              }
+            },
+            "required": [
+              "owner",
+              "repo",
+              "path"
+            ]
+          }
+        },
+        "agentSkills.installLocation": {
+          "type": "string",
+          "enum": [
+            ".github/skills",
+            ".claude/skills"
+          ],
+          "default": ".github/skills",
+          "description": "Where to install skills in the workspace"
+        },
+        "agentSkills.githubToken": {
+          "type": "string",
+          "default": "",
+          "description": "GitHub personal access token for higher API rate limits (optional)",
+          "scope": "application"
+        },
+        "agentSkills.cacheTimeout": {
+          "type": "number",
+          "default": 3600,
+          "description": "Cache timeout for marketplace data in seconds"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "npm run package",
@@ -34,15 +229,19 @@
     "test": "vscode-test"
   },
   "devDependencies": {
-    "@types/vscode": "^1.107.0",
     "@types/mocha": "^10.0.10",
     "@types/node": "22.x",
-    "typescript-eslint": "^8.48.1",
-    "eslint": "^9.39.1",
+    "@types/vscode": "^1.107.0",
+    "@vscode/test-cli": "^0.0.12",
+    "@vscode/test-electron": "^2.5.2",
     "esbuild": "^0.27.1",
+    "eslint": "^9.39.1",
     "npm-run-all": "^4.1.5",
     "typescript": "^5.9.3",
-    "@vscode/test-cli": "^0.0.12",
-    "@vscode/test-electron": "^2.5.2"
+    "typescript-eslint": "^8.48.1"
+  },
+  "dependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "markdown-it": "^14.1.0"
   }
 }
