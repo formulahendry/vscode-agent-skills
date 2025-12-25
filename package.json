@@ -167,6 +167,12 @@
               "branch": "main"
             },
             {
+              "owner": "microsoftdocs",
+              "repo": "mcp",
+              "path": "skills",
+              "branch": "main"
+            },
+            {
               "owner": "formulahendry",
               "repo": "agent-skill-code-runner",
               "path": ".github/skills/code-runner",
