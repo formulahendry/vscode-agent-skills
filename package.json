@@ -2,7 +2,7 @@
   "name": "agent-skills",
   "displayName": "Agent Skills",
   "description": "Agent Skills Marketplace and Toolkit",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "icon": "resources/logo.png",
   "publisher": "formulahendry",
   "engines": {
