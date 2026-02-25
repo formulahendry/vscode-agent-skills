@@ -173,6 +173,12 @@
               "branch": "main"
             },
             {
+              "owner": "ai-evos",
+              "repo": "agent-skills",
+              "path": "capabilities",
+              "branch": "main"
+            },
+            {
               "owner": "formulahendry",
               "repo": "agent-skill-code-runner",
               "path": ".github/skills/code-runner",
