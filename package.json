@@ -184,6 +184,27 @@
               "path": ".github/skills/code-runner",
               "branch": "main",
               "singleSkill": true
+            },
+            {
+              "owner": "ralyodio",
+              "repo": "dice-easy-apply-skill",
+              "path": ".",
+              "branch": "master",
+              "singleSkill": true
+            },
+            {
+              "owner": "ralyodio",
+              "repo": "linkedin-easy-apply-skill",
+              "path": ".",
+              "branch": "master",
+              "singleSkill": true
+            },
+            {
+              "owner": "ralyodio",
+              "repo": "promote-skill",
+              "path": ".",
+              "branch": "master",
+              "singleSkill": true
             }
           ],
           "description": "GitHub repositories to fetch skills from",
