@@ -205,6 +205,12 @@
               "path": ".",
               "branch": "master",
               "singleSkill": true
+            },
+            {
+              "owner": "ralyodio",
+              "repo": "agent-skills",
+              "path": "skills",
+              "branch": "main"
             }
           ],
           "description": "GitHub repositories to fetch skills from",
