@@ -153,13 +153,16 @@ export function activate(context: vscode.ExtensionContext) {
     // Watch for workspace skill folder changes
     const skillsWatcher = vscode.workspace.createFileSystemWatcher('**/.github/skills/*/SKILL.md');
     const claudeSkillsWatcher = vscode.workspace.createFileSystemWatcher('**/.claude/skills/*/SKILL.md');
+    const agentsSkillsWatcher = vscode.workspace.createFileSystemWatcher('**/.agents/skills/*/SKILL.md');
 
     skillsWatcher.onDidCreate(() => syncInstalledStatus());
     skillsWatcher.onDidDelete(() => syncInstalledStatus());
     claudeSkillsWatcher.onDidCreate(() => syncInstalledStatus());
     claudeSkillsWatcher.onDidDelete(() => syncInstalledStatus());
+    agentsSkillsWatcher.onDidCreate(() => syncInstalledStatus());
+    agentsSkillsWatcher.onDidDelete(() => syncInstalledStatus());
 
-    context.subscriptions.push(skillsWatcher, claudeSkillsWatcher);
+    context.subscriptions.push(skillsWatcher, claudeSkillsWatcher, agentsSkillsWatcher);
 
     // Listen for configuration changes
     context.subscriptions.push(

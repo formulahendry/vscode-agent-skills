@@ -2,7 +2,7 @@
   "name": "agent-skills",
   "displayName": "Agent Skills",
   "description": "Agent Skills Marketplace and Toolkit",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "icon": "resources/logo.png",
   "publisher": "formulahendry",
   "engines": {
@@ -225,8 +225,10 @@
           "enum": [
             ".github/skills",
             ".claude/skills",
+            ".agents/skills",
             "~/.copilot/skills",
-            "~/.claude/skills"
+            "~/.claude/skills",
+            "~/.agents/skills"
           ],
           "default": ".github/skills",
           "description": "Where to install skills: in the current workspace or in the user's home directory (~/). GitHub Copilot CLI can use skills from both locations."

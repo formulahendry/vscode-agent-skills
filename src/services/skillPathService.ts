@@ -10,7 +10,7 @@ export class SkillPathService {
     constructor() {}
 
     getScanLocations(): string[] {
-        return ['.github/skills', '.claude/skills', '~/.copilot/skills', '~/.claude/skills'];
+        return ['.github/skills', '.claude/skills', '.agents/skills', '~/.copilot/skills', '~/.claude/skills', '~/.agents/skills'];
     }
 
     getWorkspaceFolder(): vscode.WorkspaceFolder | undefined {

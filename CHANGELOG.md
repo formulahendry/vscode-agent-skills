@@ -4,6 +4,12 @@ All notable changes to the "agent-skills" extension will be documented in this f
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [0.0.4]
+
+### Added
+
+- Added support for skills directories `.agents/skills` and `~/.agents/skills` ([Agent Skills open standard](https://agentskills.io/skill-creation/quickstart)).
+
 ## [0.0.3]
 
 ### Added
