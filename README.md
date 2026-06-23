@@ -90,6 +90,25 @@ Add custom repositories by modifying this setting:
 ]
 ```
 
+For repositories that publish one skill folder instead of a directory of skills,
+set `singleSkill` to `true`. The `path` should point directly at the folder
+containing `SKILL.md`:
+
+```json
+"agentSkills.skillRepositories": [
+  {
+    "owner": "Xquik-dev",
+    "repo": "tweetclaw",
+    "path": "skills/tweetclaw",
+    "branch": "master",
+    "singleSkill": true
+  }
+]
+```
+
+This pattern works for OpenClaw or package repos that keep a packaged skill next
+to code rather than in a top-level `skills/` catalog.
+
 ### Install Location
 
 **Setting**: `agentSkills.installLocation`
