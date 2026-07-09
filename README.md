@@ -75,6 +75,7 @@ By default, the extension fetches skills from:
 - `github/awesome-copilot` - GitHub Copilot community skills
 - `pytorch/pytorch` - PyTorch agent skills
 - `openai/skills` - OpenAI curated skills
+- `ai-evos/agent-skills` - Operational domain skills (logistics, manufacturing, retail, energy)
 - `formulahendry/agent-skill-code-runner` - Code runner skill
 
 Add custom repositories by modifying this setting:
