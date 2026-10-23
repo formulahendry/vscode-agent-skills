@@ -76,6 +76,7 @@ By default, the extension fetches skills from:
 - `pytorch/pytorch` - PyTorch agent skills
 - `openai/skills` - OpenAI curated skills
 - `formulahendry/agent-skill-code-runner` - Code runner skill
+- `cis2042/ux3-product-design-harness` - UX3 product discovery, scope decisions, and review/handoff workflows; pinned to `48965c6b501f61ebbb8130c9c2e4f9af08922b9f` (91 files, MIT). Python and jsonschema are required for local validators; optional external evidence tools require user-approved host permissions and may incur model costs. This baseline retains an override whitespace-comparison gap and three missing SVG references; proposed fixes in source PRs #23 and #24 are not included. Source completeness was checked without running a VS Code host installation; this listing does not claim runtime validation or adoption.
 
 Add custom repositories by modifying this setting:
 

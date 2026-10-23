@@ -184,6 +184,12 @@
               "path": ".github/skills/code-runner",
               "branch": "main",
               "singleSkill": true
+            },
+            {
+              "owner": "cis2042",
+              "repo": "ux3-product-design-harness",
+              "path": "skills",
+              "branch": "48965c6b501f61ebbb8130c9c2e4f9af08922b9f"
             }
           ],
           "description": "GitHub repositories to fetch skills from",
